@@ -1,0 +1,761 @@
+{
+  "info": {
+    "_postman_id": "a7f9e074-829d-4ef5-9324-1f78571355e8",
+    "name": "RESTful API Project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24038479"
+  },
+  "item": [
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "Create Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"publicObjectID\", jsonData.id);\r",
+                  "\r",
+                  "pm.test(\"Check if response contains id\", function () {\r",
+                  "    pm.expect(jsonData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if response contains name\", function () {\r",
+                  "    pm.expect(jsonData.name).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if response contains data\", function () {\r",
+                  "    pm.expect(jsonData.data).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "packages": {},
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Xiaomi 15T Pro\",\r\n  \"data\": {\r\n    \"year\": 2025,\r\n    \"price\": 700.00,\r\n    \"memory size\": \"512 GB\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.restful-api.dev/objects",
+              "protocol": "https",
+              "host": [
+                "api",
+                "restful-api",
+                "dev"
+              ],
+              "path": [
+                "objects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Objects",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if response data is not empty\", function() {\r",
+                  "    pm.expect(pm.response.json()).to.not.be.empty;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.restful-api.dev/objects",
+              "protocol": "https",
+              "host": [
+                "api",
+                "restful-api",
+                "dev"
+              ],
+              "path": [
+                "objects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Single Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Check if response contains id\", function () {\r",
+                  "    pm.expect(jsonData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if response contains name\", function () {\r",
+                  "    pm.expect(jsonData.name).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if response contains data\", function () {\r",
+                  "    pm.expect(jsonData.data).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.restful-api.dev/objects/{{publicObjectID}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "restful-api",
+                "dev"
+              ],
+              "path": [
+                "objects",
+                "{{publicObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Check if name is updated\", function () {\r",
+                  "    pm.expect(jsonData.name).to.equal(\"Xiaomi 15T\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if price is updated\", function () {\r",
+                  "    pm.expect(jsonData.data.price).to.equal(500);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Xiaomi 15T\",\r\n  \"data\": {\r\n    \"year\": 2025,\r\n    \"price\": 500.00,\r\n    \"memory size\": \"256 GB\",\r\n    \"color\": \"Mocha Gold\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.restful-api.dev/objects/{{publicObjectID}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "restful-api",
+                "dev"
+              ],
+              "path": [
+                "objects",
+                "{{publicObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if name is updated\", function () {\r",
+                  "    pm.expect(pm.response.json().name).to.equal(\"Xiaomi 15T Pro\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Xiaomi 15T Pro\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.restful-api.dev/objects/{{publicObjectID}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "restful-api",
+                "dev"
+              ],
+              "path": [
+                "objects",
+                "{{publicObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if response message is correct\", function() {\r",
+                  "    pm.expect(pm.response.json().message).to.include(\"has been deleted.\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.restful-api.dev/objects/{{publicObjectID}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "restful-api",
+                "dev"
+              ],
+              "path": [
+                "objects",
+                "{{publicObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Authenticated",
+      "item": [
+        {
+          "name": "Create Collection Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"authObjectID\", jsonData.id);\r",
+                  "\r",
+                  "pm.test(\"Check if response contains name\", function () {\r",
+                  "    pm.expect(jsonData.name).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if response contains data\", function () {\r",
+                  "    pm.expect(jsonData.data).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Turkish March\",\r\n  \"data\": {\r\n    \"year\": 1784,\r\n    \"composer\": \"Wolfgang Amadeus Mozart\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/collections/music/objects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "collections",
+                "music",
+                "objects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Collections",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if response is not empty\", function() {\r",
+                  "    pm.expect(pm.response.json()).to.not.be.empty;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/collections",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "collections"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Collection Objects",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if response is not empty\", function() {\r",
+                  "    pm.expect(pm.response.json()).to.not.be.empty;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/collections/music/objects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "collections",
+                "music",
+                "objects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Collection Single Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Check if response contains name\", function () {\r",
+                  "    pm.expect(jsonData.name).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if response contains data\", function () {\r",
+                  "    pm.expect(jsonData.data).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/collections/music/objects/{{authObjectID}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "collections",
+                "music",
+                "objects",
+                "{{authObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Collection Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Check if name is updated\", function () {\r",
+                  "    pm.expect(jsonData.name).to.equal(\"Moonlight Sonata\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Check if composer is updated\", function () {\r",
+                  "    pm.expect(jsonData.data.composer).to.equal(\"Ludwig van Beethoven\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Moonlight Sonata\",\r\n  \"data\": {\r\n    \"year\": 1801,\r\n    \"composer\": \"Ludwig van Beethoven\"\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/collections/music/objects/{{authObjectID}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "collections",
+                "music",
+                "objects",
+                "{{authObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Partial Update Collection Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Check if year is updated\", function () {\r",
+                  "    pm.expect(jsonData.data.year).to.equal(1804);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"data\": {\r\n        \"year\": 1804\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/collections/music/objects/{{authObjectID}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "collections",
+                "music",
+                "objects",
+                "{{authObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Collection Object",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if response message is correct\", function() {\r",
+                  "    pm.expect(pm.response.json().message).to.include(\"has been deleted.\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/collections/music/objects/{{authObjectID}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "collections",
+                "music",
+                "objects",
+                "{{authObjectID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register User Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if response returns a token\", function() {\r",
+                  "    pm.expect(pm.response.json().token).to.not.be.null;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"name\": \"Tester\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login User Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Check if response returns a token\", function() {\r",
+                  "    pm.expect(pm.response.json().token).to.not.be.null;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "apikey",
+        "apikey": [
+          {
+            "key": "value",
+            "value": "{{vault:restful_api_key}}",
+            "type": "string"
+          },
+          {
+            "key": "key",
+            "value": "x-api-key",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "pm.test(\"Check if response time is less than 1000ms\", function () {\r",
+          "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+          "});\r",
+          "\r",
+          "pm.test(\"Check if status code is 200\", function () {\r",
+          "    pm.response.to.have.status(200);\r",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.restful-api.dev"
+    },
+    {
+      "key": "publicObjectID",
+      "value": ""
+    },
+    {
+      "key": "authObjectID",
+      "value": ""
+    },
+    {
+      "key": "email",
+      "value": ""
+    },
+    {
+      "key": "password",
+      "value": ""
+    }
+  ]
+}
